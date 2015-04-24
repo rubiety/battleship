@@ -13,8 +13,8 @@ module GamesHelper
       # "hit" if @game.hit_at?(x, y)
       if @game.hit_at?(x, y)
         "hit"
-      elsif @game.ship_at?(x,y)
-        "ship"
+      #elsif @game.ship_at?(x,y)
+      #  "ship"
       end
     end
   end
