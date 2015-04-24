@@ -7,6 +7,10 @@ class Game < ActiveRecord::Base
 
   SIZE = 16
 
+  def completed?
+    fires.count >= 30
+  end
+
   def fire_at?(x, y)
     fires.where(x: x, y: y).exists?
   end

@@ -2,12 +2,12 @@ class Ship < ActiveRecord::Base
   belongs_to :game
 
   TYPES = {
-    "Aircraft Carrier" => { size: 5, points: 20 },
-    "Battleship" => { size: 4, points: 12 },
-    "Submarine" => { size: 3, points: 6 },
-    "Destroyer" => { size: 3, points: 6 },
+    "Patrol Boat" => { size: 2, points: 2 },
     "Crusier" => { size: 3, points: 6 },
-    "Patrol Boat" => { size: 2, points: 2 }
+    "Destroyer" => { size: 3, points: 6 },
+    "Submarine" => { size: 3, points: 6 },
+    "Battleship" => { size: 4, points: 12 },
+    "Aircraft Carrier" => { size: 5, points: 20 }
   }
 
   validate :ensure_y_less_than_x, on: :create

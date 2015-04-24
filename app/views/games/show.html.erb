@@ -3,19 +3,9 @@
     <% Game::SIZE.times do |y| %>
       <tr>
         <% Game::SIZE.times do |x| %>
-          <td>
-            <% if @game.fire_at?(x + 1, y + 1) %>
-              
-            <% elsif @game.hit_at?(x + 1, y + 1) %>
-              O
-            <% else %>
+          <td class="<%= cell_status(x + 1, y + 1) %>">
+            <% unless @game.completed? or @game.fire_at?(x + 1, y + 1) %>
               <%= link_to "X", game_fires_path(@game, x: x + 1, y: y + 1), method: :post %>
-            <% end %>
-
-            <% if true %>
-              <% if @game.ship_at?(x + 1, y + 1) %>
-                S
-              <% end %>
             <% end %>
           </td>
         <% end %>
