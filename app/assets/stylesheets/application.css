@@ -13,9 +13,14 @@
  *= require_tree .
  *= require_self
  */
+#game {
+  border-collapse: collapse;
+}
 
 #game td {
-  padding: 10px;
+  border: 1px solid #AAA;
+  width: 35px;
+  height: 35px;
 }
 
 #game td.hit { background-color: #C00; }
