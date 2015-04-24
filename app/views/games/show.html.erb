@@ -1,5 +1,19 @@
 <h1>Round <%= @game.current_round.position %></h1>
 <h2>Fire <%= (@game.current_round.fires_count || 0) + 1 %> of 5</h2>
+<h3>Current Points: <%= @game.points %></h3>
+
+<% if @game.completed? %>
+  <h1>Game Complete!</h1>
+<% end %>
+
+<% if @game.ships_sunk.present? %>
+  <h3>Ships Sunk:</h3>
+  <ul>
+    <% @game.ships_sunk.each do |ship| %>
+      <li><%= ship.name %> (<%= ship.points %> points)</li>
+    <% end %>
+  </ul>
+<% end %>
 
 <table id="game">
   <tbody>

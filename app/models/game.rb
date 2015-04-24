@@ -9,6 +9,18 @@ class Game < ActiveRecord::Base
   FIRES_PER_ROUND = 5
   SIZE = 16
 
+  def points
+    points_from_sinking_ships - fires.where("rounds.fires_count >= 5").where(hit: false).count
+  end
+
+  def points_from_sinking_ships
+    ships_sunk.map(&:points).sum
+  end
+
+  def ships_sunk
+    ships.to_a.select(&:sunk?)
+  end
+
   def fire(x, y)
     return false if completed?
     
@@ -55,6 +67,7 @@ class Game < ActiveRecord::Base
         end
 
         ship = Ship.new(
+          name: name,
           start_x: start_at[0],
           start_y: start_at[1],
           end_x: end_at[0],

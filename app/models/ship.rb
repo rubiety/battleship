@@ -13,6 +13,16 @@ class Ship < ActiveRecord::Base
   validate :ensure_y_less_than_x, on: :create
   validate :ensure_in_bounds_and_uncollided, on: :create
 
+  def points
+    TYPES[name][:points]
+  end
+
+  def sunk?
+    coordinates.all? do |pair|
+      game.hit_at?(pair[0], pair[1])
+    end
+  end
+
   def coordinates
     (start_x..end_x).to_a.map do |x|
       (start_y..end_y).to_a.map do |y|
