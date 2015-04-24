@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+#game td {
+  padding: 10px;
+}
