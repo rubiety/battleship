@@ -5,14 +5,18 @@ class Game < ActiveRecord::Base
 
   after_create :create_ships
 
+  ROUNDS = 6
+  FIRES_PER_ROUND = 5
   SIZE = 16
 
   def fire(x, y)
+    return false if completed?
+    
     current_round.fires.create(x: x, y: y)
   end
 
   def completed?
-    fires.count >= 30
+    fires.count >= FIRES_PER_ROUND * ROUNDS
   end
 
   def fire_at?(x, y)
@@ -20,7 +24,7 @@ class Game < ActiveRecord::Base
   end
 
   def hit_at?(x, y)
-    fires.where("rounds.fires_count >= 5").where(hit: true).exists?
+    fires.where("rounds.fires_count >= 5").where(hit: true, x: x, y: y).exists?
   end
 
   def ship_at?(x, y)
