@@ -20,3 +20,4 @@
 
 #game td.hit { background-color: #C00; }
 #game td.ship { background-color: #000; }
+#game td.hit.ship { background-color: yellow; }

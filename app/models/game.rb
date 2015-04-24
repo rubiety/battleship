@@ -7,6 +7,10 @@ class Game < ActiveRecord::Base
 
   SIZE = 16
 
+  def fire(x, y)
+    current_round.fires.create(x: x, y: y)
+  end
+
   def completed?
     fires.count >= 30
   end
@@ -29,10 +33,6 @@ class Game < ActiveRecord::Base
     rounds.pending.last or rounds.create
   end
 
-  def fire(x, y)
-    current_round.fires.create(x: x, y: y)
-  end
-
   def ship_coordinates
     ships.map(&:coordinates).flatten(1)
   end
@@ -45,9 +45,9 @@ class Game < ActiveRecord::Base
         start_at = [(1..Game::SIZE).to_a.sample, (1..Game::SIZE).to_a.sample]
 
         if rand > 0.5
-          end_at = [start_at[0], start_at[1] + values[:size]]
+          end_at = [start_at[0], start_at[1] + values[:size] - 1]
         else
-          end_at = [start_at[0] + values[:size], start_at[1]]
+          end_at = [start_at[0] + values[:size] - 1, start_at[1]]
         end
 
         ship = Ship.new(
