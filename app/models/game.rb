@@ -10,7 +10,8 @@ class Game < ActiveRecord::Base
   SIZE = 16
 
   def points
-    points_from_sinking_ships - fires.where("rounds.fires_count >= 5").where(hit: false).count
+    value = points_from_sinking_ships - fires.where("rounds.fires_count >= 5").where(hit: false).count
+    value < 0 ? 0 : value
   end
 
   def points_from_sinking_ships
