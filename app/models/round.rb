@@ -5,6 +5,6 @@ class Round < ActiveRecord::Base
   acts_as_list scope: :game_id
 
   scope :completed, -> { where("fires_count >= 5") }
-  scope :pending, -> { where("fires_count < 5") }
+  scope :pending, -> { where("fires_count IS NULL OR fires_count < 5") }
 
 end

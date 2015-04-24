@@ -22,6 +22,10 @@ class Game < ActiveRecord::Base
     ships.to_a.select(&:sunk?)
   end
 
+  def all_ships_sunk?
+    ships_sunk.size == ships.size
+  end
+
   def fire(x, y)
     return false if completed?
     
@@ -47,7 +51,13 @@ class Game < ActiveRecord::Base
   end
 
   def current_round
-    rounds.pending.last or rounds.create
+    if rounds.empty?
+      rounds.create
+    elsif rounds.last.fires.count < 5
+      rounds.last
+    else
+      rounds.create
+    end
   end
 
   def ship_coordinates

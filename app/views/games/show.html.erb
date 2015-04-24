@@ -1,9 +1,14 @@
-<!-- <h1>Round <%= @game.current_round.position %></h1> -->
+<h1>Round <%= @game.current_round.position %></h1>
 <h2>Fire <%= (@game.current_round.fires_count || 0) + 1 %> of 5</h2>
 <h3>Current Points: <%= @game.points %></h3>
 
 <% if @game.completed? %>
   <h1>Game Complete!</h1>
+  <% if @game.all_ships_sunk? %>
+    <h2>You win - all ships sunk!</h2>
+  <% else %>
+    <h2>You lost - not all ships sunk!</h2>
+  <% end %>
 <% end %>
 
 <% if @game.ships_sunk.present? %>
